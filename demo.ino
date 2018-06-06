@@ -2,6 +2,9 @@
 
 int switchPin = 8;// define LED for pin 9
 int ledPin = 13;
+boolean lastBtn = LOW;// keeps track of btn in previous loop
+boolean ledOn  = false; //current state of LED and we toggle it
+boolean currentBtn = LOW;
 
 void setup(){
   //initalize pin as output
@@ -9,12 +12,21 @@ void setup(){
   pinMode(switchPin, INPUT); //set pin as input
  }
 
+ boolean debounce(boolean last){
+  boolean current = digitalRead(switchPin);
+  if(last != current){
+    delay(5);
+    current = digitalRead(switchPin);
+    }
+    return current;
+  }
+
  void loop(){
-    if(digitalRead(switchPin) == HIGH){
-      digitalWrite(ledPin, HIGH);
-     }
-     else
-     {
-        digitalWrite(ledPin, LOW);
-      }  
+      currentBtn = debounce(lastBtn);
+      if(lastBtn  == LOW  && currentBtn == HIGH){
+        ledOn = !ledOn;
+       }
+        lastBtn = currentBtn;
+      
+      digitalWrite(ledPin,ledOn);
   }
