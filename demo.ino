@@ -1,9 +1,9 @@
 //set pin as output
 
 int switchPin = 8;// define LED for pin 9
-int ledPin = 13;
+int ledPin = 3;
 boolean lastBtn = LOW;// keeps track of btn in previous loop
-boolean ledOn  = false; //current state of LED and we toggle it
+int ledLevel  = 0; //current state of LED and we toggle it
 boolean currentBtn = LOW;
 
 void setup(){
@@ -24,9 +24,9 @@ void setup(){
  void loop(){
       currentBtn = debounce(lastBtn);
       if(lastBtn  == LOW  && currentBtn == HIGH){
-        ledOn = !ledOn;
+        ledLevel = ledLevel + 45 ;
        }
         lastBtn = currentBtn;
-      
-      digitalWrite(ledPin,ledOn);
+      if(ledLevel > 255){ledLevel = 0;}
+      analogWrite(ledPin,ledLevel);
   }
