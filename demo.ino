@@ -1,32 +1,29 @@
-//set pin as output
+/* program to create a pulse trainn of LEDs/*
+ *  
+ */
 
-int switchPin = 8;// define LED for pin 9
-int ledPin = 3;
-boolean lastBtn = LOW;// keeps track of btn in previous loop
-int ledLevel  = 0; //current state of LED and we toggle it
-boolean currentBtn = LOW;
+ int led1 = 8;
+ int led2 =10;
+ int led3 = 12;
 
-void setup(){
-  //initalize pin as output
-  pinMode(ledPin, OUTPUT); //set pin as output
-  pinMode(switchPin, INPUT); //set pin as input
- }
-
- boolean debounce(boolean last){
-  boolean current = digitalRead(switchPin);
-  if(last != current){
-    delay(5);
-    current = digitalRead(switchPin);
-    }
-    return current;
+ void setup(){
+     pinMode(led1,OUTPUT);
+     pinMode(led2,OUTPUT);
+     pinMode(led3,OUTPUT);
   }
 
- void loop(){
-      currentBtn = debounce(lastBtn);
-      if(lastBtn  == LOW  && currentBtn == HIGH){
-        ledLevel = ledLevel + 45 ;
-       }
-        lastBtn = currentBtn;
-      if(ledLevel > 255){ledLevel = 0;}
-      analogWrite(ledPin,ledLevel);
+  void loop(){
+      digitalWrite(led1,HIGH);
+      delay(500);
+      digitalWrite(led2,HIGH);
+      delay(500);
+      digitalWrite(led3,HIGH);
+      delay(500);
+      digitalWrite(led1,LOW);
+      delay(500);
+      digitalWrite(led2,LOW);
+      delay(500);
+      digitalWrite(led3,LOW);
+      delay(500);
+  
   }
