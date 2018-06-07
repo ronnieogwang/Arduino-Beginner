@@ -1,30 +1,19 @@
-int redled = 8;
-int yellowled = 10;
-int greenled = 12;
-
-
-
+int led = 9;
+int btn = 4;
 void setup() {
-   pinMode (redled, OUTPUT);
-  pinMode (yellowled, OUTPUT);
-  pinMode (greenled, OUTPUT);
-
+  pinMode (led, OUTPUT);
+  pinMode(btn, INPUT);
+  
 }
 
 void loop() {
-  digitalWrite(redled, 1);
-  delay (300);
-  digitalWrite(redled, 0);
-  digitalWrite(yellowled, 1);
-  delay (300);
-  digitalWrite(yellowled, 0);
-  digitalWrite(greenled, 1);
-    delay (300);
-  digitalWrite(greenled, 0);
-    digitalWrite(yellowled, 1);
-  delay (300);
-  digitalWrite(yellowled, 0);
+ if(digitalRead(btn) == HIGH){
+ digitalWrite (led, 1);
+ }
+ else{
+ digitalWrite (led, 0);
+ }
 
-
-
+   
+    
 }
