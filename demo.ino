@@ -1,7 +1,5 @@
 //declare btn variables
 int redled = 5;
-int greenled = 6;
-int yellowled = 7;
 int btn = 3;
 
 //state variables
@@ -12,14 +10,10 @@ int btnState =0; //itneger to hold btn state
 void setup() {
   //direction of pins i.e inputs or outputs
   pinMode (redled, OUTPUT);
-  pinMode (greenled, OUTPUT);
-  pinMode (yellowled, OUTPUT);
   pinMode(btn, INPUT);
 
   //initial states set to off
   digitalWrite(redled, 0);
-  digitalWrite (greenled, 0);
-  digitalWrite (yellowled, 0);
   
 }
 
@@ -37,31 +31,25 @@ void loop() {
       delay(100);                  //delay to remove oscillations
      }
 
-     switch(state){
-        case 1:
-           digitalWrite(redled, 1);
-           digitalWrite(greenled, 0);
-           digitalWrite(yellowled, 0);
-           last = state;
-           break;
-        case 2:
-           digitalWrite(redled, 0);
-           digitalWrite(greenled, 1);
-           digitalWrite(yellowled, 0);
-           last = state;
-           break;
-         case 3:
-           digitalWrite(redled, 0);
-           digitalWrite(greenled, 0);
-           digitalWrite(yellowled, 1);
-           last = state;
-           break;
-         default:          //if state >3
-           digitalWrite(redled, 0);
-           digitalWrite(greenled, 0);
-           digitalWrite(yellowled, 0);
-           last = 0;
-           break;
+     if(state ==1){
+        digitalWrite(redled, 1);
+//      last = 0;
+     }else{
+        digitalWrite(redled, 0);
+//      last = 0;
      }
+     
+
+
+//     switch(state){
+//        case 1:
+//           digitalWrite(redled, 1);
+//           last = state;
+//           break;
+//         default:          //if state >3
+//           digitalWrite(redled, 0);
+//           last = 0;
+//           break;
+//     }
     
 }
