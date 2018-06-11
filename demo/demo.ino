@@ -1,27 +1,75 @@
-//sketch to trun servo thru 180 degrees and back
-  #include <Servo.h>   //import servo class
+//sketch to control servo with two buttons moving in opposite direction
 
-  Servo servo;  // create servo object to control a servo
-  int angle = 0;
+#include <Servo.h>  // add servo library
+#define sw1_pin 5   //define switch pins
+#define sw2_pin 6
+Servo myservo;  // create servo object to control a servo
 
-  void setup(){
-    servo.attach(9);
-    servo.write(angle);
-   
-   }
 
-// servo to rotate from 0 to 180 degrees
-  void loop(){
-    for (angle = 0; angle <= 180; angle += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    servo.write(angle);              // tell servo to go to position in variable 'pos'
-    delay(10);                       // waits 15ms for the servo to reach the position
+volatile boolean sw1 = false;
+volatile boolean sw2 = false;
+
+uint8_t sw1ButtonState = 0;
+uint8_t sw2ButtonState = 0;
+
+uint8_t lastsw1ButtonState = 0;
+uint8_t lastsw2ButtonState = 0;
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(sw1_pin, INPUT_PULLUP);
+  pinMode(sw2_pin, INPUT_PULLUP);
+  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
+}
+
+void loop() {
+ 
+     checkIfSw1ButtonIsPressed();
+     checkIfSw2ButtonIsPressed();
+
+     if( sw1){
+      Serial.println("sw1");
+       sw1 = false;
+       myservo.write(20);
+       delay(15);
      }
-//servo to rotate from 180 degrees to 0
-     for (angle = 180; angle >= 0; angle -= 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    servo.write(angle);              // tell servo to go to position in variable 'pos'
-    delay(10);                       // waits 15ms for the servo to reach the position
+     else if( sw2){
+      Serial.println("sw2");
+       sw2 = false;
+       myservo.write(170);
+       delay(15);
      }
-   
-   }
+
+                             // waits for the servo to get there
+}
+
+void checkIfSw1ButtonIsPressed()
+{
+    sw1ButtonState   = digitalRead(sw1_pin);
+  
+    if (sw1ButtonState != lastsw1ButtonState)
+  {
+    if ( sw1ButtonState == 0)
+    {
+      sw1=true;
+    }
+    delay(50);
+  }
+   lastsw1ButtonState = sw1ButtonState;
+ }
+
+void checkIfSw2ButtonIsPressed()
+{
+    sw2ButtonState   = digitalRead(sw2_pin);
+  
+    if (sw2ButtonState != lastsw2ButtonState)
+  {
+    if ( sw2ButtonState == 0)
+    {
+      sw2=true;
+    }
+    delay(50);
+  }
+   lastsw2ButtonState = sw2ButtonState;
+ }
