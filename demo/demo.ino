@@ -1,49 +1,27 @@
-///* Sweep
-// by BARRAGAN <http://barraganstudio.com>
-// This example code is in the public domain.
-//
-// modified 8 Nov 2013
-// by Scott Fitzgerald
-// http://www.arduino.cc/en/Tutorial/Sweep
-//*/
-//
-//#include <Servo.h>   //import servo class
-//
-//Servo myservo;  // create servo object to control a servo
-//// twelve servo objects can be created on most boards
-//
-//int pos = 0;    // variable to store the servo position
-//
-//void setup() {
-//  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
-//}
-//
-//void loop() {
-//  for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
-//    // in steps of 1 degree
-//    myservo.write(pos);              // tell servo to go to position in variable 'pos'
-//    delay(15);                       // waits 15ms for the servo to reach the position
-//  }
-//  for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
-//    myservo.write(pos);              // tell servo to go to position in variable 'pos'
-//    delay(15);                       // waits 15ms for the servo to reach the position
-//  }
-//}
-
+//sketch to trun servo thru 180 degrees and back
   #include <Servo.h>   //import servo class
 
   Servo servo;  // create servo object to control a servo
+  int angle = 0;
 
   void setup(){
     servo.attach(9);
-    servo.write(0);
-    delay(2000); 
+    servo.write(angle);
+   
    }
 
+// servo to rotate from 0 to 180 degrees
   void loop(){
-    servo.write(90);
-    delay(1000);
-    servo.write(0);
-    delay(1000);
+    for (angle = 0; angle <= 180; angle += 1) { // goes from 0 degrees to 180 degrees
+    // in steps of 1 degree
+    servo.write(angle);              // tell servo to go to position in variable 'pos'
+    delay(10);                       // waits 15ms for the servo to reach the position
+     }
+//servo to rotate from 180 degrees to 0
+     for (angle = 180; angle >= 0; angle -= 1) { // goes from 0 degrees to 180 degrees
+    // in steps of 1 degree
+    servo.write(angle);              // tell servo to go to position in variable 'pos'
+    delay(10);                       // waits 15ms for the servo to reach the position
+     }
    
    }
